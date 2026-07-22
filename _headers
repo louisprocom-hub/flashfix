@@ -1,0 +1,13 @@
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/*.mp4
+  Content-Type: video/mp4
+  Accept-Ranges: bytes
+  Cache-Control: public, max-age=604800
+
+/assets/*
+  Cache-Control: public, max-age=604800

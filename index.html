@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0A0A0B">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <title>FlashFix — Réparation iPhone express à Toulouse</title>
+  <meta name="description" content="FlashFix — réparation professionnelle d'iPhone express à Toulouse. Ouvert 7j/7 de 9h à 21h. Soft OLED, garantie 6 mois. 37 rue Léo Lagrange, 31400 Toulouse.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A0A0B;
+      --bg-elevated: #111113;
+      --surface: #161618;
+      --ink: #F5F5F4;
+      --muted: #9A9A9E;
+      --line: rgba(255,255,255,0.08);
+      --line-strong: rgba(255,255,255,0.14);
+      --gold: #C9A227;
+      --gold-soft: rgba(201, 162, 39, 0.12);
+      --gold-border: rgba(201, 162, 39, 0.35);
+      --radius: 16px;
+      --header-h: 92px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (hover: none) and (pointer: coarse) { html { scroll-behavior: auto; } }
+
+    body {
+      font-family: Outfit, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    .container { width: min(1100px, calc(100% - 40px)); margin: 0 auto; }
+
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10, 10, 11, 0.94);
+      border-bottom: 1px solid transparent;
+    }
+    header.scrolled { border-bottom-color: var(--line); }
+
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: var(--header-h); gap: 20px;
+    }
+    .logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .logo img { height: 78px; width: auto; display: block; }
+
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a {
+      text-decoration: none; font-size: 0.9rem; font-weight: 450;
+      color: var(--muted); transition: color 0.15s;
+    }
+    nav a:hover { color: var(--ink); }
+
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 22px; border-radius: 999px; font-weight: 560; font-size: 0.9rem;
+      text-decoration: none; border: none; cursor: pointer; font-family: inherit;
+      white-space: nowrap; transition: opacity 0.15s, border-color 0.15s;
+    }
+    .btn:hover { opacity: 0.92; }
+    .btn-gold { background: var(--gold); color: #0A0A0B; }
+    .btn-ghost {
+      background: transparent; color: var(--ink);
+      border: 1px solid var(--line-strong);
+    }
+
+    .menu-btn {
+      display: none; width: 44px; height: 44px;
+      border: 1px solid var(--line); border-radius: 12px;
+      background: transparent; color: var(--ink); cursor: pointer; font-size: 1.25rem;
+      align-items: center; justify-content: center;
+    }
+
+    .mobile-nav {
+      display: none; flex-direction: column; gap: 2px;
+      padding: 8px 0 18px; border-top: 1px solid var(--line);
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      text-decoration: none; padding: 12px 2px; font-weight: 500; color: var(--ink);
+    }
+
+    .hero { padding: 48px 0 72px; position: relative; overflow: hidden; }
+    .hero::before {
+      content: ""; position: absolute; width: 520px; height: 520px;
+      right: -80px; top: -120px;
+      background: radial-gradient(circle, rgba(201,162,39,0.1), transparent 68%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.05fr 0.95fr;
+      gap: 56px; align-items: center;
+    }
+    .eyebrow {
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(2.35rem, 4.8vw, 3.45rem); font-weight: 600;
+      line-height: 1.08; letter-spacing: -0.035em; margin-bottom: 18px;
+    }
+    .hero h1 span { color: var(--gold); font-weight: 500; }
+    .hero-lead {
+      font-size: 1.05rem; color: var(--muted); max-width: 420px;
+      margin-bottom: 28px; font-weight: 350;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
+    .trust-row { display: flex; gap: 28px; flex-wrap: wrap; }
+    .trust-item strong {
+      display: block; font-size: 1.15rem; font-weight: 600; letter-spacing: -0.02em;
+    }
+    .trust-item span { font-size: 0.78rem; color: var(--muted); }
+
+    .hero-frame {
+      border-radius: 20px; overflow: hidden; background: var(--surface);
+      aspect-ratio: 4 / 5; max-height: 540px; border: 1px solid var(--line);
+      position: relative;
+    }
+    .hero-frame video { width: 100%; height: 100%; object-fit: cover; }
+    .hero-caption {
+      position: absolute; left: 14px; right: 14px; bottom: 14px;
+      background: rgba(10,10,11,0.82); border: 1px solid var(--line);
+      border-radius: 12px; padding: 12px 14px; font-size: 0.84rem; font-weight: 500;
+      display: flex; justify-content: space-between; gap: 10px;
+    }
+    .hero-caption span { color: var(--muted); font-weight: 400; }
+
+    section { padding: 80px 0; }
+    section.alt { background: var(--bg-elevated); }
+
+    .section-head { max-width: 640px; margin-bottom: 40px; }
+    .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+    h2 {
+      font-size: clamp(1.7rem, 3vw, 2.25rem); font-weight: 600;
+      letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 14px;
+    }
+    .section-desc {
+      color: var(--muted); font-size: 1.12rem; font-weight: 400; line-height: 1.55;
+    }
+    .section-desc.lead { font-size: 1.18rem; max-width: 560px; margin: 0 auto; }
+
+    .pricing-tabs {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; justify-content: center;
+    }
+    .tab-btn {
+      padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line);
+      background: transparent; color: var(--muted); font-weight: 500; font-size: 0.86rem;
+      cursor: pointer; font-family: inherit; transition: all 0.15s;
+    }
+    .tab-btn:hover { color: var(--ink); border-color: var(--line-strong); }
+    .tab-btn.active {
+      background: var(--gold); color: #0A0A0B; border-color: var(--gold); font-weight: 600;
+    }
+
+    .pricing-panel { display: none; max-width: 520px; margin: 0 auto; }
+    .pricing-panel.active { display: block; animation: fadeIn 0.22s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .price-card {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 32px;
+    }
+    .price-card h3 {
+      font-size: 1.4rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 4px;
+    }
+    .price-card .subtitle { color: var(--muted); font-size: 0.88rem; margin-bottom: 24px; font-weight: 350; }
+    .price-rows { display: grid; gap: 8px; margin-bottom: 18px; }
+    .price-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 16px; background: var(--bg); border-radius: 12px; border: 1px solid var(--line);
+    }
+    .price-row .label { font-weight: 450; font-size: 0.94rem; }
+    .price-row .amount {
+      font-size: 1.2rem; font-weight: 600; letter-spacing: -0.02em; color: var(--gold);
+    }
+    .bundle-offer {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 15px 18px; background: var(--gold-soft); border-radius: 12px;
+      border: 1px solid var(--gold-border);
+    }
+    .bundle-offer p { font-weight: 500; font-size: 0.9rem; }
+    .bundle-offer .discount {
+      background: var(--gold); color: #0A0A0B; font-weight: 700;
+      font-size: 1rem; padding: 7px 12px; border-radius: 8px; white-space: nowrap;
+    }
+
+    /* Engagement — titres seuls */
+    .quality-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    }
+    .quality-card {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 24px 20px;
+      display: flex; flex-direction: column; gap: 12px; min-height: 128px;
+      justify-content: center;
+    }
+    .quality-card .q-num {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; color: var(--gold);
+    }
+    .quality-card h3 {
+      font-size: 0.98rem; font-weight: 560; letter-spacing: -0.015em; line-height: 1.4;
+    }
+
+    /* Carousel 3D */
+    .carousel-wrap {
+      margin-top: 48px;
+      perspective: 1400px;
+      padding: 20px 0 8px;
+    }
+    .carousel-stage {
+      position: relative;
+      height: min(520px, 72vw);
+      max-width: 920px;
+      margin: 0 auto;
+      transform-style: preserve-3d;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: grab;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .carousel-stage.is-dragging { cursor: grabbing; }
+    .carousel-hit {
+      position: absolute;
+      inset: 0;
+      z-index: 200;
+      touch-action: none;
+    }
+    .carousel-card {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: min(280px, 58vw);
+      aspect-ratio: 3 / 4;
+      margin: 0;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+      transform: translate(-50%, -50%);
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease, filter 0.45s ease;
+      cursor: grab;
+    }
+    .carousel-card:active { cursor: grabbing; }
+    .carousel-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      background: var(--bg);
+    }
+    .carousel-card.is-center {
+      border-color: var(--gold-border);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,162,39,0.2);
+    }
+    .carousel-nav {
+      display: flex; align-items: center; justify-content: center;
+      gap: 18px; margin-top: 28px;
+    }
+    .carousel-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--line-strong); border: none; padding: 0; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .carousel-dot.active { background: var(--gold); transform: scale(1.25); }
+    .carousel-arrow {
+      width: 42px; height: 42px; border-radius: 50%;
+      border: 1px solid var(--line-strong); background: var(--surface);
+      color: var(--ink); cursor: pointer; font-size: 1.1rem;
+      display: grid; place-items: center; transition: border-color 0.15s, color 0.15s;
+    }
+    .carousel-arrow:hover { border-color: var(--gold); color: var(--gold); }
+
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    .contact-card {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 30px;
+    }
+    .contact-card h3 {
+      font-size: 1.1rem; font-weight: 560; margin-bottom: 24px; letter-spacing: -0.02em;
+    }
+    .contact-item {
+      display: flex; gap: 14px; margin-bottom: 20px; align-items: flex-start;
+    }
+    .contact-item:last-child { margin-bottom: 0; }
+    .ci-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--gold);
+      margin-top: 8px; flex-shrink: 0;
+    }
+    .contact-item strong {
+      display: block; font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px;
+    }
+    .contact-item span, .contact-item a {
+      font-size: 0.94rem; color: var(--ink); text-decoration: none;
+    }
+    .contact-item a:hover { color: var(--gold); }
+    .hours-hl { color: var(--gold); font-weight: 500; }
+
+    .map-embed {
+      border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line);
+      min-height: 360px; background: var(--surface);
+    }
+    .map-embed iframe {
+      width: 100%; height: 100%; min-height: 360px; border: 0; display: block;
+    }
+
+    footer {
+      padding: 28px 0 36px;
+      border-top: 1px solid var(--line);
+    }
+    .footer-inner {
+      display: flex; flex-wrap: wrap; justify-content: space-between;
+      align-items: center; gap: 14px;
+    }
+    footer p { color: var(--muted); font-size: 0.84rem; font-weight: 350; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.84rem;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* Cookie banner */
+    .cookie-banner {
+      position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 300;
+      opacity: 0; transform: translateY(12px); pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .cookie-banner.is-visible {
+      opacity: 1; transform: none; pointer-events: auto;
+    }
+    .cookie-banner__inner {
+      max-width: 720px; margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      border-radius: 18px;
+      padding: 20px 22px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+      display: flex; gap: 20px; align-items: center; flex-wrap: wrap;
+    }
+    .cookie-banner__text { flex: 1 1 280px; }
+    .cookie-banner__text strong {
+      display: block; font-size: 0.95rem; margin-bottom: 6px; letter-spacing: -0.01em;
+    }
+    .cookie-banner__text p {
+      font-size: 0.86rem; color: var(--muted); font-weight: 350; margin-bottom: 8px;
+    }
+    .cookie-banner__text a {
+      font-size: 0.82rem; color: var(--gold); text-decoration: none;
+    }
+    .cookie-banner__text a:hover { text-decoration: underline; }
+    .cookie-banner__actions {
+      display: flex; gap: 10px; flex-shrink: 0;
+    }
+    .cookie-btn {
+      padding: 11px 18px; border-radius: 999px; font-family: inherit;
+      font-weight: 600; font-size: 0.86rem; cursor: pointer; border: none;
+    }
+    .cookie-btn--gold { background: var(--gold); color: #0A0A0B; }
+    .cookie-btn--ghost {
+      background: transparent; color: var(--ink); border: 1px solid var(--line-strong);
+    }
+
+    @media (max-width: 900px) {
+      nav, .header-actions .btn-ghost { display: none; }
+      .menu-btn { display: flex; }
+      .hero-grid, .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+      .hero { padding: 28px 0 56px; }
+      .hero-media { order: -1; max-width: 300px; margin: 0 auto; }
+      .hero-frame { max-height: 400px; }
+      .quality-grid { grid-template-columns: 1fr 1fr; }
+      section { padding: 64px 0; }
+      .logo img { height: 64px; }
+      .carousel-stage { height: min(440px, 85vw); }
+    }
+
+    @media (max-width: 600px) {
+      :root { --header-h: 78px; }
+      .container { width: calc(100% - 28px); }
+      .quality-grid { grid-template-columns: 1fr; }
+      .quality-card { min-height: 96px; }
+      .pricing-tabs {
+        flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; justify-content: flex-start;
+      }
+      .pricing-tabs::-webkit-scrollbar { display: none; }
+      .tab-btn { flex-shrink: 0; }
+      .price-card { padding: 22px; }
+      .hero-actions .btn { width: 100%; }
+      .header-actions .btn-gold { padding: 10px 14px; font-size: 0.82rem; }
+      .cookie-banner__inner { padding: 18px; }
+      .cookie-banner__actions { width: 100%; }
+      .cookie-btn { flex: 1; }
+      .section-desc.lead { font-size: 1.05rem; }
+    }
+
+    @supports (-webkit-touch-callout: none) {
+      header { background: #0A0A0B; }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="siteHeader">
+    <div class="container header-inner">
+      <a href="index.html" class="logo" aria-label="FlashFix accueil">
+        <img src="assets/logo.png" alt="FlashFix — Réparation Express Qualité Premium">
+      </a>
+      <nav aria-label="Navigation principale">
+        <a href="#tarifs">Tarifs</a>
+        <a href="#engagement">Engagement</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="https://www.google.com/maps/place/FlashFix/@43.5872989,1.4527445,17z" target="_blank" rel="noopener" class="btn btn-ghost">📍 Itinéraire</a>
+        <a href="tel:+33648112582" class="btn btn-gold">📞 06 48 11 25 82</a>
+        <button class="menu-btn" type="button" aria-label="Menu" onclick="document.getElementById('mobileNav').classList.toggle('open')">☰</button>
+      </div>
+    </div>
+    <div class="container mobile-nav" id="mobileNav">
+      <a href="#tarifs" onclick="this.parentElement.classList.remove('open')">Tarifs</a>
+      <a href="#engagement" onclick="this.parentElement.classList.remove('open')">Engagement</a>
+      <a href="#contact" onclick="this.parentElement.classList.remove('open')">Contact</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Réparation professionnelle</p>
+        <h1>Réparation iPhone<br><span>express</span> à Toulouse</h1>
+        <p class="hero-lead">Diagnostic et devis gratuits.</p>
+        <div class="hero-actions">
+          <a href="tel:+33648112582" class="btn btn-gold">📞 Appeler — 06 48 11 25 82</a>
+          <a href="#tarifs" class="btn btn-ghost">📋 Voir les tarifs</a>
+        </div>
+        <div class="trust-row">
+          <div class="trust-item"><strong>7j/7</strong><span>9h – 21h</span></div>
+          <div class="trust-item"><strong>30 min</strong><span>Réparation express</span></div>
+          <div class="trust-item"><strong>6 mois</strong><span>Garantie</span></div>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="hero-frame">
+          <video id="heroVideo" autoplay muted loop playsinline webkit-playsinline disablepictureinpicture preload="auto">
+            <source src="assets/hero-video-mobile.mp4?v=full76hd" type="video/mp4">
+            <source src="assets/hero-video.mp4?v=full76hd" type="video/mp4">
+          </video>
+          <div class="hero-caption">
+            ⚡ Atelier FlashFix
+            <span>Qualité premium</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tarifs">
+    <div class="container">
+      <div class="section-head center">
+        <h2>Nos tarifs</h2>
+        <p class="section-desc lead">Écran Soft OLED identique aux écrans originaux &amp; batterie Ti haute capacité testée</p>
+      </div>
+
+      <div class="pricing-tabs" role="tablist">
+        <button class="tab-btn active" data-model="xr" type="button">iPhone XR</button>
+        <button class="tab-btn" data-model="11" type="button">iPhone 11</button>
+        <button class="tab-btn" data-model="12" type="button">iPhone 12</button>
+        <button class="tab-btn" data-model="13" type="button">iPhone 13</button>
+        <button class="tab-btn" data-model="14" type="button">iPhone 14</button>
+        <button class="tab-btn" data-model="15" type="button">iPhone 15</button>
+        <button class="tab-btn" data-model="16" type="button">iPhone 16</button>
+        <button class="tab-btn" data-model="17" type="button">iPhone 17</button>
+      </div>
+
+      <div id="pricingPanels">
+        <div class="pricing-panel active" data-model="xr">
+          <div class="price-card">
+            <h3>iPhone XR</h3>
+            <p class="subtitle">Remplacement écran &amp; batterie · Garantie 6 mois</p>
+            <div class="price-rows">
+              <div class="price-row"><span class="label">📱 Écran — XR</span><span class="amount">59 €</span></div>
+              <div class="price-row"><span class="label">🔋 Batterie — XR</span><span class="amount">39 €</span></div>
+            </div>
+            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">= −10 €</div></div>
+          </div>
+        </div>
+
+        <div class="pricing-panel" data-model="11">
+          <div class="price-card">
+            <h3>iPhone 11</h3>
+            <p class="subtitle">Remplacement écran &amp; batterie · Garantie 6 mois</p>
+            <div class="price-rows">
+              <div class="price-row"><span class="label">📱 Écran — iPhone 11</span><span class="amount">79 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 11 Pro</span><span class="amount">89 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 11 Pro Max</span><span class="amount">99 €</span></div>
+              <div class="price-row"><span class="label">🔋 Batterie — Tous modèles</span><span class="amount">44 €</span></div>
+            </div>
+            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">= −10 €</div></div>
+          </div>
+        </div>
+
+        <div class="pricing-panel" data-model="12">
+          <div class="price-card">
+            <h3>iPhone 12</h3>
+            <p class="subtitle">Remplacement écran &amp; batterie · Garantie 6 mois</p>
+            <div class="price-rows">
+              <div class="price-row"><span class="label">📱 Écran — iPhone 12</span><span class="amount">89 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 12 Pro</span><span class="amount">99 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 12 Pro Max</span><span class="amount">109 €</span></div>
+              <div class="price-row"><span class="label">🔋 Batterie — Tous modèles</span><span class="amount">44 €</span></div>
+            </div>
+            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">= −10 €</div></div>
+          </div>
+        </div>
+
+        <div class="pricing-panel" data-model="13">
+          <div class="price-card">
+            <h3>iPhone 13</h3>
+            <p class="subtitle">Remplacement écran &amp; batterie · Garantie 6 mois</p>
+            <div class="price-rows">
+              <div class="price-row"><span class="label">📱 Écran — iPhone 13</span><span class="amount">99 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 13 Pro</span><span class="amount">109 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 13 Pro Max</span><span class="amount">119 €</span></div>
+              <div class="price-row"><span class="label">🔋 Batterie — Tous modèles</span><span class="amount">49 €</span></div>
+            </div>
+            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">= −10 €</div></div>
+          </div>
+        </div>
+
+        <div class="pricing-panel" data-model="14">
+          <div class="price-card">
+            <h3>iPhone 14</h3>
+            <p class="subtitle">Remplacement écran &amp; batterie · Garantie 6 mois</p>
+            <div class="price-rows">
+              <div class="price-row"><span class="label">📱 Écran — iPhone 14</span><span class="amount">119 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 14 Plus</span><span class="amount">125 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 14 Pro</span><span class="amount">129 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 14 Pro Max</span><span class="amount">139 €</span></div>
+              <div class="price-row"><span class="label">🔋 Batterie — Tous modèles</span><span class="amount">49 €</span></div>
+            </div>
+            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">= −10 €</div></div>
+          </div>
+        </div>
+
+        <div class="pricing-panel" data-model="15">
+          <div class="price-card">
+            <h3>iPhone 15</h3>
+            <p class="subtitle">Remplacement écran &amp; batterie · Garantie 6 mois</p>
+            <div class="price-rows">
+              <div class="price-row"><span class="label">📱 Écran — iPhone 15</span><span class="amount">129 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 15 Plus</span><span class="amount">135 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 15 Pro</span><span class="amount">139 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 15 Pro Max</span><span class="amount">149 €</span></div>
+              <div class="price-row"><span class="label">🔋 Batterie — Tous modèles</span><span class="amount">49 €</span></div>
+            </div>
+            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">= −10 €</div></div>
+          </div>
+        </div>
+
+        <div class="pricing-panel" data-model="16">
+          <div class="price-card">
+            <h3>iPhone 16</h3>
+            <p class="subtitle">Remplacement écran &amp; batterie · Garantie 6 mois</p>
+            <div class="price-rows">
+              <div class="price-row"><span class="label">📱 Écran — iPhone 16</span><span class="amount">139 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 16e</span><span class="amount">139 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 16 Plus</span><span class="amount">139 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 16 Pro</span><span class="amount">175 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 16 Pro Max</span><span class="amount">199 €</span></div>
+              <div class="price-row"><span class="label">🔋 Batterie — Tous modèles</span><span class="amount">59 €</span></div>
+            </div>
+            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">= −10 €</div></div>
+          </div>
+        </div>
+
+        <div class="pricing-panel" data-model="17">
+          <div class="price-card">
+            <h3>iPhone 17</h3>
+            <p class="subtitle">Remplacement écran · Garantie 6 mois</p>
+            <div class="price-rows">
+              <div class="price-row"><span class="label">📱 Écran — iPhone 17</span><span class="amount">209 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 17e</span><span class="amount">139 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 17 Pro</span><span class="amount">219 €</span></div>
+              <div class="price-row"><span class="label">📱 Écran — 17 Pro Max</span><span class="amount">229 €</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="engagement" class="alt">
+    <div class="container">
+      <div class="section-head center">
+        <h2>Pourquoi FlashFix ?</h2>
+      </div>
+
+      <div class="quality-grid">
+        <div class="quality-card">
+          <div class="q-num">01</div>
+          <h3>✨ Soft OLED Premium</h3>
+        </div>
+        <div class="quality-card">
+          <div class="q-num">02</div>
+          <h3>🔋 Batterie Ti haute capacité</h3>
+        </div>
+        <div class="quality-card">
+          <div class="q-num">03</div>
+          <h3>⚡ 30 min chrono</h3>
+        </div>
+        <div class="quality-card">
+          <div class="q-num">04</div>
+          <h3>🗓️ Ouvert 7j/7 · 9h/21h</h3>
+        </div>
+        <div class="quality-card">
+          <div class="q-num">05</div>
+          <h3>💎 Meilleur rapport qualité / prix</h3>
+        </div>
+        <div class="quality-card">
+          <div class="q-num">06</div>
+          <h3>🛡️ Pièces et main d’œuvre garantie 6 mois</h3>
+        </div>
+      </div>
+
+      <div class="carousel-wrap" aria-label="Galerie FlashFix">
+        <div class="carousel-stage" id="carouselStage">
+          <div class="carousel-hit" id="carouselHit" aria-hidden="true"></div>
+          <figure class="carousel-card"><img src="assets/carousel-ba.png?v=2" alt="Avant / après remplacement écran FlashFix" loading="lazy" draggable="false"></figure>
+          <figure class="carousel-card"><img src="assets/carousel-atelier-flashfix.png" alt="Atelier FlashFix Toulouse" loading="lazy" draggable="false"></figure>
+          <figure class="carousel-card"><img src="assets/carousel-galerie-1.png" alt="Réparation professionnelle iPhone" loading="lazy" draggable="false"></figure>
+          <figure class="carousel-card"><img src="assets/carousel-galerie-2.png" alt="Réparation interne iPhone" loading="lazy" draggable="false"></figure>
+          <figure class="carousel-card"><img src="assets/carousel-galerie-3.png" alt="Atelier réparation iPhone" loading="lazy" draggable="false"></figure>
+        </div>
+        <div class="carousel-nav">
+          <button type="button" class="carousel-arrow" id="carouselPrev" aria-label="Photo précédente">‹</button>
+          <div id="carouselDots" style="display:flex;gap:10px;align-items:center;"></div>
+          <button type="button" class="carousel-arrow" id="carouselNext" aria-label="Photo suivante">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <h2>FlashFix · Toulouse</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Louis Marquez — FlashFix</h3>
+          <div class="contact-item">
+            <div class="ci-dot" aria-hidden="true"></div>
+            <div>
+              <strong>📞 Téléphone</strong>
+              <span><a href="tel:+33648112582">06 48 11 25 82</a> — Diagnostic et devis gratuits</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-dot" aria-hidden="true"></div>
+            <div>
+              <strong>📍 Adresse</strong>
+              <span>37 rue Léo Lagrange<br>31400 Toulouse</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-dot" aria-hidden="true"></div>
+            <div>
+              <strong>🕐 Horaires</strong>
+              <span><span class="hours-hl">7j/7 · 9h – 21h</span><br>Sur rendez-vous</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-dot" aria-hidden="true"></div>
+            <div>
+              <strong>📍 Google Maps</strong>
+              <span><a href="https://www.google.com/maps/place/FlashFix/@43.5872989,1.4527445,17z" target="_blank" rel="noopener">Voir FlashFix sur Google Maps</a></span>
+            </div>
+          </div>
+        </div>
+        <div class="map-embed">
+          <iframe
+            data-src="https://maps.google.com/maps?q=FlashFix+37+rue+L%C3%A9o+Lagrange+31400+Toulouse&t=&z=16&ie=UTF8&iwloc=&output=embed"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="FlashFix Toulouse Google Maps">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>© 2026 FlashFix. Tous droits réservés</p>
+      <div class="footer-links">
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="politique-confidentialite.html">Politique de confidentialité</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* Pricing tabs */
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const model = btn.dataset.model;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.pricing-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelector(`.pricing-panel[data-model="${model}"]`).classList.add('active');
+      });
+    });
+
+    const header = document.getElementById('siteHeader');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 8);
+    }, { passive: true });
+
+    /* Hero video */
+    (function () {
+      const video = document.getElementById('heroVideo');
+      if (!video) return;
+      video.muted = true;
+      video.defaultMuted = true;
+      video.playsInline = true;
+      function tryPlay() {
+        if (!video.paused) return;
+        video.muted = true;
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
+      }
+      ['loadeddata', 'canplay', 'canplaythrough'].forEach(function (evt) {
+        video.addEventListener(evt, tryPlay, { once: true });
+      });
+      tryPlay();
+      document.addEventListener('visibilitychange', function () {
+        if (!document.hidden) tryPlay();
+      });
+
+      const mapFrame = document.querySelector('.map-embed iframe');
+      const contactSection = document.getElementById('contact');
+      function loadMap() {
+        if (!mapFrame || mapFrame.src || !mapFrame.dataset.src) return;
+        mapFrame.src = mapFrame.dataset.src;
+        mapFrame.setAttribute('allowfullscreen', '');
+      }
+      if (contactSection && 'IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting) loadMap();
+        }, { rootMargin: '300px' }).observe(contactSection);
+      } else {
+        loadMap();
+      }
+    })();
+
+    /* 3D Carousel — swipe doigt / souris */
+    (function () {
+      var stage = document.getElementById('carouselStage');
+      var hit = document.getElementById('carouselHit');
+      if (!stage) return;
+      var cards = Array.prototype.slice.call(stage.querySelectorAll('.carousel-card'));
+      var n = cards.length;
+      var index = 0;
+      var autoTimer = null;
+      var dotsWrap = document.getElementById('carouselDots');
+      var dragTarget = hit || stage;
+
+      cards.forEach(function (_, i) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Photo ' + (i + 1));
+        dot.addEventListener('click', function () { goTo(i); restartAuto(); });
+        dotsWrap.appendChild(dot);
+      });
+
+      function layout() {
+        var isMobile = window.matchMedia('(max-width: 600px)').matches;
+        var radius = isMobile ? 160 : 280;
+        var step = 360 / n;
+        cards.forEach(function (card, i) {
+          var offset = ((i - index) % n + n) % n;
+          if (offset > n / 2) offset -= n;
+          var angle = offset * step;
+          var abs = Math.abs(offset);
+          var scale = abs === 0 ? 1 : abs === 1 ? 0.82 : 0.68;
+          var opacity = abs === 0 ? 1 : abs === 1 ? 0.72 : 0.35;
+          var blur = abs > 1 ? 'blur(1px)' : 'none';
+          card.style.zIndex = String(100 - abs);
+          card.classList.toggle('is-center', abs === 0);
+          card.style.opacity = String(opacity);
+          card.style.filter = blur;
+          card.style.transform =
+            'translate(-50%, -50%) rotateY(' + angle + 'deg) translateZ(' + radius + 'px) scale(' + scale + ')';
+        });
+        var dots = dotsWrap.querySelectorAll('.carousel-dot');
+        dots.forEach(function (d, i) { d.classList.toggle('active', i === index); });
+      }
+
+      function goTo(i) {
+        index = ((i % n) + n) % n;
+        layout();
+      }
+      function next() { goTo(index + 1); }
+      function prev() { goTo(index - 1); }
+
+      function restartAuto() {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(next, 4000);
+      }
+
+      document.getElementById('carouselNext').addEventListener('click', function () { next(); restartAuto(); });
+      document.getElementById('carouselPrev').addEventListener('click', function () { prev(); restartAuto(); });
+
+      var startX = 0, startY = 0, dragging = false, moved = false, lockedAxis = null;
+
+      function onStart(x, y) {
+        dragging = true;
+        moved = false;
+        lockedAxis = null;
+        startX = x;
+        startY = y;
+        stage.classList.add('is-dragging');
+        clearInterval(autoTimer);
+      }
+
+      function onMove(x, y, e) {
+        if (!dragging) return;
+        var dx = x - startX;
+        var dy = y - startY;
+        if (!lockedAxis && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
+          lockedAxis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+        }
+        if (lockedAxis === 'x') {
+          moved = true;
+          if (e && e.cancelable) e.preventDefault();
+        }
+      }
+
+      function onEnd(x) {
+        if (!dragging) return;
+        dragging = false;
+        stage.classList.remove('is-dragging');
+        var dx = x - startX;
+        if (lockedAxis === 'x' && Math.abs(dx) > 36) {
+          if (dx < 0) next(); else prev();
+        }
+        lockedAxis = null;
+        restartAuto();
+      }
+
+      // Pointer (souris + stylet + doigt modernes)
+      dragTarget.addEventListener('pointerdown', function (e) {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        onStart(e.clientX, e.clientY);
+        try { dragTarget.setPointerCapture(e.pointerId); } catch (err) {}
+      });
+      dragTarget.addEventListener('pointermove', function (e) {
+        onMove(e.clientX, e.clientY, e);
+      });
+      dragTarget.addEventListener('pointerup', function (e) { onEnd(e.clientX); });
+      dragTarget.addEventListener('pointercancel', function (e) { onEnd(e.clientX); });
+
+      // Touch fallback iOS / anciens navigateurs
+      dragTarget.addEventListener('touchstart', function (e) {
+        if (!e.touches || !e.touches.length) return;
+        onStart(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: true });
+      dragTarget.addEventListener('touchmove', function (e) {
+        if (!e.touches || !e.touches.length) return;
+        onMove(e.touches[0].clientX, e.touches[0].clientY, e);
+      }, { passive: false });
+      dragTarget.addEventListener('touchend', function (e) {
+        var t = (e.changedTouches && e.changedTouches[0]) || null;
+        onEnd(t ? t.clientX : startX);
+      }, { passive: true });
+
+      // Clic sur carte = pas bloqué (hit layer absorbe le drag)
+      dragTarget.addEventListener('click', function (e) {
+        if (moved) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      });
+
+      window.addEventListener('resize', layout);
+      layout();
+      restartAuto();
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) clearInterval(autoTimer);
+        else restartAuto();
+      });
+    })();
+  </script>
+  <script>
+    // Colle ton ID Google Analytics ici (ex: 'G-XXXXXXXXXX')
+    window.FLASHFIX_GA_ID = 'G-XXXXXXXXXX';
+  </script>
+  <script src="cookies.js" defer></script>
+</body>
+</html>
