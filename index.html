@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0A0A0B">
-  <link rel="icon" href="favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="icon" href="favicon.ico?v=2" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=2">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>FlashFix — Réparation iPhone express à Toulouse</title>
   <meta name="description" content="FlashFix — réparation professionnelle d'iPhone express à Toulouse. Ouvert 7j/7 de 9h à 21h. Soft OLED, garantie 6 mois. 37 rue Léo Lagrange, 31400 Toulouse.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -233,7 +235,8 @@
       max-width: 920px;
       margin: 0 auto;
       transform-style: preserve-3d;
-      touch-action: none;
+      /* pan-y = on peut scroller la page ; le JS bloque seulement le swipe horizontal */
+      touch-action: pan-y;
       user-select: none;
       -webkit-user-select: none;
       cursor: grab;
@@ -241,16 +244,18 @@
       overflow: visible;
     }
     .carousel-stage.is-dragging { cursor: grabbing; }
+    .carousel-stage.is-dragging-x { touch-action: none; }
     .carousel-stage.is-dragging .carousel-card { transition: none; }
     .carousel-hit {
       position: absolute;
-      /* zone tactile large pour le swipe doigt (y compris autour des cartes) */
-      inset: -24px -12px;
+      inset: -32px -16px;
       z-index: 500;
-      touch-action: none;
+      touch-action: pan-y;
       -webkit-user-select: none;
       user-select: none;
-      background: transparent;
+      /* iOS ignore parfois les calques 100% transparents au centre */
+      background: rgba(0, 0, 0, 0.01);
+      pointer-events: auto;
     }
     .carousel-card {
       position: absolute;
@@ -266,11 +271,15 @@
       transform: translate(-50%, -50%);
       transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease, filter 0.45s ease;
       cursor: grab;
+      /* les cartes 3D ne volent plus les touches — tout passe par .carousel-hit */
+      pointer-events: none;
     }
     .carousel-card:active { cursor: grabbing; }
     .carousel-card img {
       width: 100%; height: 100%; object-fit: cover;
       background: var(--bg);
+      pointer-events: none;
+      -webkit-user-drag: none;
     }
     .carousel-card.is-center {
       border-color: var(--gold-border);
@@ -431,7 +440,7 @@
   <header id="siteHeader">
     <div class="container header-inner">
       <a href="index.html" class="logo" aria-label="FlashFix accueil">
-        <img src="assets/logo-nav.png?v=3" alt="FlashFix">
+        <img src="/assets/logo-nav.png" alt="FlashFix" width="782" height="512" onerror="this.onerror=null;this.src='/assets/logo-transparent.png'">
       </a>
       <nav aria-label="Navigation principale">
         <a href="#tarifs">Tarifs</a>
@@ -862,6 +871,7 @@
         startX = lastX = clientX(e);
         startY = clientY(e);
         stage.classList.add('is-dragging');
+        stage.classList.remove('is-dragging-x');
         clearInterval(autoTimer);
         if (e.pointerId != null) {
           activePointer = e.pointerId;
@@ -878,46 +888,53 @@
         var dy = y - startY;
         lastX = x;
 
-        if (!lockedAxis && (Math.abs(dx) > 6 || Math.abs(dy) > 6)) {
-          lockedAxis = Math.abs(dx) > Math.abs(dy) * 0.85 ? 'x' : 'y';
+        if (!lockedAxis && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
+          lockedAxis = Math.abs(dx) > Math.abs(dy) * 0.9 ? 'x' : 'y';
         }
 
         if (lockedAxis === 'x') {
           moved = true;
+          stage.classList.add('is-dragging-x');
           if (e.cancelable) e.preventDefault();
-          // feedback 3D pendant le swipe
           var dragDeg = Math.max(-40, Math.min(40, dx * 0.18));
           layout(dragDeg);
         } else if (lockedAxis === 'y') {
-          // laisser le scroll page — on abandonne le drag carrousel
+          // scroll page vertical OK — on lâche le carrousel
           dragging = false;
           stage.classList.remove('is-dragging');
+          stage.classList.remove('is-dragging-x');
           layout(0);
           restartAuto();
+          activePointer = null;
         }
       }
 
       function onEnd(e) {
+        stage.classList.remove('is-dragging-x');
         if (!dragging && lockedAxis !== 'x') {
-          // déjà abandonné en scroll vertical
           activePointer = null;
+          lockedAxis = null;
           return;
         }
         if (!dragging && !moved) {
           activePointer = null;
+          lockedAxis = null;
           return;
         }
         var wasDragging = dragging;
         dragging = false;
         stage.classList.remove('is-dragging');
         activePointer = null;
-        if (!wasDragging && !moved) return;
+        if (!wasDragging && !moved) {
+          lockedAxis = null;
+          return;
+        }
 
         var dx = lastX - startX;
         if (e) {
           try { dx = clientX(e) - startX; } catch (err) {}
         }
-        var threshold = window.matchMedia('(max-width: 600px)').matches ? 28 : 40;
+        var threshold = window.matchMedia('(max-width: 600px)').matches ? 24 : 40;
         if (lockedAxis === 'x' && Math.abs(dx) > threshold) {
           if (dx < 0) next(); else prev();
         } else {
