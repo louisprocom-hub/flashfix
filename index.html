@@ -25,7 +25,7 @@
       --gold-soft: rgba(201, 162, 39, 0.12);
       --gold-border: rgba(201, 162, 39, 0.35);
       --radius: 16px;
-      --header-h: 92px;
+      --header-h: 108px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -46,7 +46,7 @@
 
     header {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(10, 10, 11, 0.94);
+      background: #0A0A0B;
       border-bottom: 1px solid transparent;
     }
     header.scrolled { border-bottom-color: var(--line); }
@@ -55,8 +55,11 @@
       display: flex; align-items: center; justify-content: space-between;
       height: var(--header-h); gap: 20px;
     }
-    .logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
-    .logo img { height: 78px; width: auto; display: block; }
+    .logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; line-height: 0; }
+    .logo img {
+      height: 96px; width: auto; display: block;
+      background: transparent;
+    }
 
     nav { display: flex; align-items: center; gap: 32px; }
     nav a {
@@ -137,9 +140,7 @@
       position: absolute; left: 14px; right: 14px; bottom: 14px;
       background: rgba(10,10,11,0.82); border: 1px solid var(--line);
       border-radius: 12px; padding: 12px 14px; font-size: 0.84rem; font-weight: 500;
-      display: flex; justify-content: space-between; gap: 10px;
     }
-    .hero-caption span { color: var(--muted); font-weight: 400; }
 
     section { padding: 80px 0; }
     section.alt { background: var(--bg-elevated); }
@@ -214,7 +215,7 @@
       justify-content: center;
     }
     .quality-card .q-num {
-      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; color: var(--gold);
+      font-size: 1.15rem; font-weight: 600; letter-spacing: 0.06em; color: var(--gold);
     }
     .quality-card h3 {
       font-size: 0.98rem; font-weight: 560; letter-spacing: -0.015em; line-height: 1.4;
@@ -237,13 +238,19 @@
       -webkit-user-select: none;
       cursor: grab;
       -webkit-tap-highlight-color: transparent;
+      overflow: visible;
     }
     .carousel-stage.is-dragging { cursor: grabbing; }
+    .carousel-stage.is-dragging .carousel-card { transition: none; }
     .carousel-hit {
       position: absolute;
-      inset: 0;
-      z-index: 200;
+      /* zone tactile large pour le swipe doigt (y compris autour des cartes) */
+      inset: -24px -12px;
+      z-index: 500;
       touch-action: none;
+      -webkit-user-select: none;
+      user-select: none;
+      background: transparent;
     }
     .carousel-card {
       position: absolute;
@@ -388,12 +395,14 @@
       .hero-frame { max-height: 400px; }
       .quality-grid { grid-template-columns: 1fr 1fr; }
       section { padding: 64px 0; }
-      .logo img { height: 64px; }
+      .logo img { height: 76px; }
+      :root { --header-h: 92px; }
       .carousel-stage { height: min(440px, 85vw); }
     }
 
     @media (max-width: 600px) {
-      :root { --header-h: 78px; }
+      :root { --header-h: 84px; }
+      .logo img { height: 68px; }
       .container { width: calc(100% - 28px); }
       .quality-grid { grid-template-columns: 1fr; }
       .quality-card { min-height: 96px; }
@@ -422,7 +431,7 @@
   <header id="siteHeader">
     <div class="container header-inner">
       <a href="index.html" class="logo" aria-label="FlashFix accueil">
-        <img src="assets/logo.png" alt="FlashFix — Réparation Express Qualité Premium">
+        <img src="assets/logo-nav.png?v=3" alt="FlashFix">
       </a>
       <nav aria-label="Navigation principale">
         <a href="#tarifs">Tarifs</a>
@@ -464,10 +473,7 @@
             <source src="assets/hero-video-mobile.mp4?v=full76hd" type="video/mp4">
             <source src="assets/hero-video.mp4?v=full76hd" type="video/mp4">
           </video>
-          <div class="hero-caption">
-            ⚡ Atelier FlashFix
-            <span>Qualité premium</span>
-          </div>
+          <div class="hero-caption">⚡ Atelier FlashFix</div>
         </div>
       </div>
     </div>
@@ -500,7 +506,7 @@
               <div class="price-row"><span class="label">📱 Écran — XR</span><span class="amount">59 €</span></div>
               <div class="price-row"><span class="label">🔋 Batterie — XR</span><span class="amount">39 €</span></div>
             </div>
-            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">= −10 €</div></div>
+            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">−10 €</div></div>
           </div>
         </div>
 
@@ -514,7 +520,7 @@
               <div class="price-row"><span class="label">📱 Écran — 11 Pro Max</span><span class="amount">99 €</span></div>
               <div class="price-row"><span class="label">🔋 Batterie — Tous modèles</span><span class="amount">44 €</span></div>
             </div>
-            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">= −10 €</div></div>
+            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">−10 €</div></div>
           </div>
         </div>
 
@@ -528,7 +534,7 @@
               <div class="price-row"><span class="label">📱 Écran — 12 Pro Max</span><span class="amount">109 €</span></div>
               <div class="price-row"><span class="label">🔋 Batterie — Tous modèles</span><span class="amount">44 €</span></div>
             </div>
-            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">= −10 €</div></div>
+            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">−10 €</div></div>
           </div>
         </div>
 
@@ -542,7 +548,7 @@
               <div class="price-row"><span class="label">📱 Écran — 13 Pro Max</span><span class="amount">119 €</span></div>
               <div class="price-row"><span class="label">🔋 Batterie — Tous modèles</span><span class="amount">49 €</span></div>
             </div>
-            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">= −10 €</div></div>
+            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">−10 €</div></div>
           </div>
         </div>
 
@@ -557,7 +563,7 @@
               <div class="price-row"><span class="label">📱 Écran — 14 Pro Max</span><span class="amount">139 €</span></div>
               <div class="price-row"><span class="label">🔋 Batterie — Tous modèles</span><span class="amount">49 €</span></div>
             </div>
-            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">= −10 €</div></div>
+            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">−10 €</div></div>
           </div>
         </div>
 
@@ -572,7 +578,7 @@
               <div class="price-row"><span class="label">📱 Écran — 15 Pro Max</span><span class="amount">149 €</span></div>
               <div class="price-row"><span class="label">🔋 Batterie — Tous modèles</span><span class="amount">49 €</span></div>
             </div>
-            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">= −10 €</div></div>
+            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">−10 €</div></div>
           </div>
         </div>
 
@@ -588,7 +594,7 @@
               <div class="price-row"><span class="label">📱 Écran — 16 Pro Max</span><span class="amount">199 €</span></div>
               <div class="price-row"><span class="label">🔋 Batterie — Tous modèles</span><span class="amount">59 €</span></div>
             </div>
-            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">= −10 €</div></div>
+            <div class="bundle-offer"><p>⚡ Écran + Batterie ensemble</p><div class="discount">−10 €</div></div>
           </div>
         </div>
 
@@ -644,7 +650,6 @@
       <div class="carousel-wrap" aria-label="Galerie FlashFix">
         <div class="carousel-stage" id="carouselStage">
           <div class="carousel-hit" id="carouselHit" aria-hidden="true"></div>
-          <figure class="carousel-card"><img src="assets/carousel-ba.png?v=2" alt="Avant / après remplacement écran FlashFix" loading="lazy" draggable="false"></figure>
           <figure class="carousel-card"><img src="assets/carousel-atelier-flashfix.png" alt="Atelier FlashFix Toulouse" loading="lazy" draggable="false"></figure>
           <figure class="carousel-card"><img src="assets/carousel-galerie-1.png" alt="Réparation professionnelle iPhone" loading="lazy" draggable="false"></figure>
           <figure class="carousel-card"><img src="assets/carousel-galerie-2.png" alt="Réparation interne iPhone" loading="lazy" draggable="false"></figure>
@@ -666,7 +671,6 @@
       </div>
       <div class="contact-grid">
         <div class="contact-card">
-          <h3>Louis Marquez — FlashFix</h3>
           <div class="contact-item">
             <div class="ci-dot" aria-hidden="true"></div>
             <div>
@@ -771,7 +775,7 @@
       }
     })();
 
-    /* 3D Carousel — swipe doigt / souris */
+    /* 3D Carousel — swipe doigt / souris (iOS-friendly) */
     (function () {
       var stage = document.getElementById('carouselStage');
       var hit = document.getElementById('carouselHit');
@@ -781,31 +785,36 @@
       var index = 0;
       var autoTimer = null;
       var dotsWrap = document.getElementById('carouselDots');
-      var dragTarget = hit || stage;
+      var surface = hit || stage;
 
       cards.forEach(function (_, i) {
         var dot = document.createElement('button');
         dot.type = 'button';
         dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
         dot.setAttribute('aria-label', 'Photo ' + (i + 1));
-        dot.addEventListener('click', function () { goTo(i); restartAuto(); });
+        (function (idx) {
+          dot.addEventListener('click', function () { goTo(idx); restartAuto(); });
+        })(i);
         dotsWrap.appendChild(dot);
       });
 
-      function layout() {
+      function layout(dragDeg) {
         var isMobile = window.matchMedia('(max-width: 600px)').matches;
-        var radius = isMobile ? 160 : 280;
+        var radius = isMobile ? 150 : 280;
         var step = 360 / n;
+        var drag = dragDeg || 0;
         cards.forEach(function (card, i) {
           var offset = ((i - index) % n + n) % n;
           if (offset > n / 2) offset -= n;
-          var angle = offset * step;
+          var angle = offset * step + drag;
           var abs = Math.abs(offset);
-          var scale = abs === 0 ? 1 : abs === 1 ? 0.82 : 0.68;
-          var opacity = abs === 0 ? 1 : abs === 1 ? 0.72 : 0.35;
-          var blur = abs > 1 ? 'blur(1px)' : 'none';
-          card.style.zIndex = String(100 - abs);
-          card.classList.toggle('is-center', abs === 0);
+          // pendant le drag, approx l’abs pour l’opacité
+          var visualAbs = Math.min(Math.abs(angle) / step, 2);
+          var scale = visualAbs < 0.35 ? 1 : visualAbs < 1.2 ? 0.82 : 0.68;
+          var opacity = visualAbs < 0.35 ? 1 : visualAbs < 1.2 ? 0.72 : 0.35;
+          var blur = visualAbs > 1.2 ? 'blur(1px)' : 'none';
+          card.style.zIndex = String(100 - Math.round(visualAbs * 10));
+          card.classList.toggle('is-center', abs === 0 && !drag);
           card.style.opacity = String(opacity);
           card.style.filter = blur;
           card.style.transform =
@@ -817,92 +826,128 @@
 
       function goTo(i) {
         index = ((i % n) + n) % n;
-        layout();
+        layout(0);
       }
       function next() { goTo(index + 1); }
       function prev() { goTo(index - 1); }
 
       function restartAuto() {
         clearInterval(autoTimer);
-        autoTimer = setInterval(next, 4000);
+        autoTimer = setInterval(next, 4200);
       }
 
       document.getElementById('carouselNext').addEventListener('click', function () { next(); restartAuto(); });
       document.getElementById('carouselPrev').addEventListener('click', function () { prev(); restartAuto(); });
 
-      var startX = 0, startY = 0, dragging = false, moved = false, lockedAxis = null;
+      var startX = 0, startY = 0, lastX = 0;
+      var dragging = false, moved = false, lockedAxis = null;
+      var activePointer = null;
 
-      function onStart(x, y) {
+      function clientX(e) {
+        if (e.touches && e.touches[0]) return e.touches[0].clientX;
+        if (e.changedTouches && e.changedTouches[0]) return e.changedTouches[0].clientX;
+        return e.clientX;
+      }
+      function clientY(e) {
+        if (e.touches && e.touches[0]) return e.touches[0].clientY;
+        if (e.changedTouches && e.changedTouches[0]) return e.changedTouches[0].clientY;
+        return e.clientY;
+      }
+
+      function onStart(e) {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
         dragging = true;
         moved = false;
         lockedAxis = null;
-        startX = x;
-        startY = y;
+        startX = lastX = clientX(e);
+        startY = clientY(e);
         stage.classList.add('is-dragging');
         clearInterval(autoTimer);
+        if (e.pointerId != null) {
+          activePointer = e.pointerId;
+          try { surface.setPointerCapture(e.pointerId); } catch (err) {}
+        }
       }
 
-      function onMove(x, y, e) {
+      function onMove(e) {
         if (!dragging) return;
+        if (activePointer != null && e.pointerId != null && e.pointerId !== activePointer) return;
+        var x = clientX(e);
+        var y = clientY(e);
         var dx = x - startX;
         var dy = y - startY;
-        if (!lockedAxis && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
-          lockedAxis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+        lastX = x;
+
+        if (!lockedAxis && (Math.abs(dx) > 6 || Math.abs(dy) > 6)) {
+          lockedAxis = Math.abs(dx) > Math.abs(dy) * 0.85 ? 'x' : 'y';
         }
+
         if (lockedAxis === 'x') {
           moved = true;
-          if (e && e.cancelable) e.preventDefault();
+          if (e.cancelable) e.preventDefault();
+          // feedback 3D pendant le swipe
+          var dragDeg = Math.max(-40, Math.min(40, dx * 0.18));
+          layout(dragDeg);
+        } else if (lockedAxis === 'y') {
+          // laisser le scroll page — on abandonne le drag carrousel
+          dragging = false;
+          stage.classList.remove('is-dragging');
+          layout(0);
+          restartAuto();
         }
       }
 
-      function onEnd(x) {
-        if (!dragging) return;
+      function onEnd(e) {
+        if (!dragging && lockedAxis !== 'x') {
+          // déjà abandonné en scroll vertical
+          activePointer = null;
+          return;
+        }
+        if (!dragging && !moved) {
+          activePointer = null;
+          return;
+        }
+        var wasDragging = dragging;
         dragging = false;
         stage.classList.remove('is-dragging');
-        var dx = x - startX;
-        if (lockedAxis === 'x' && Math.abs(dx) > 36) {
+        activePointer = null;
+        if (!wasDragging && !moved) return;
+
+        var dx = lastX - startX;
+        if (e) {
+          try { dx = clientX(e) - startX; } catch (err) {}
+        }
+        var threshold = window.matchMedia('(max-width: 600px)').matches ? 28 : 40;
+        if (lockedAxis === 'x' && Math.abs(dx) > threshold) {
           if (dx < 0) next(); else prev();
+        } else {
+          layout(0);
         }
         lockedAxis = null;
         restartAuto();
       }
 
-      // Pointer (souris + stylet + doigt modernes)
-      dragTarget.addEventListener('pointerdown', function (e) {
-        if (e.pointerType === 'mouse' && e.button !== 0) return;
-        onStart(e.clientX, e.clientY);
-        try { dragTarget.setPointerCapture(e.pointerId); } catch (err) {}
-      });
-      dragTarget.addEventListener('pointermove', function (e) {
-        onMove(e.clientX, e.clientY, e);
-      });
-      dragTarget.addEventListener('pointerup', function (e) { onEnd(e.clientX); });
-      dragTarget.addEventListener('pointercancel', function (e) { onEnd(e.clientX); });
+      // Pointer Events (Chrome Android, Safari récents, desktop)
+      surface.addEventListener('pointerdown', onStart);
+      surface.addEventListener('pointermove', onMove, { passive: false });
+      surface.addEventListener('pointerup', onEnd);
+      surface.addEventListener('pointercancel', onEnd);
 
-      // Touch fallback iOS / anciens navigateurs
-      dragTarget.addEventListener('touchstart', function (e) {
-        if (!e.touches || !e.touches.length) return;
-        onStart(e.touches[0].clientX, e.touches[0].clientY);
-      }, { passive: true });
-      dragTarget.addEventListener('touchmove', function (e) {
-        if (!e.touches || !e.touches.length) return;
-        onMove(e.touches[0].clientX, e.touches[0].clientY, e);
-      }, { passive: false });
-      dragTarget.addEventListener('touchend', function (e) {
-        var t = (e.changedTouches && e.changedTouches[0]) || null;
-        onEnd(t ? t.clientX : startX);
-      }, { passive: true });
+      // Touch natif (iOS Safari — plus fiable que pointer seul)
+      surface.addEventListener('touchstart', onStart, { passive: true });
+      surface.addEventListener('touchmove', onMove, { passive: false });
+      surface.addEventListener('touchend', onEnd, { passive: true });
+      surface.addEventListener('touchcancel', onEnd, { passive: true });
 
-      // Clic sur carte = pas bloqué (hit layer absorbe le drag)
-      dragTarget.addEventListener('click', function (e) {
+      surface.addEventListener('click', function (e) {
         if (moved) {
           e.preventDefault();
           e.stopPropagation();
         }
       });
 
-      window.addEventListener('resize', layout);
-      layout();
+      window.addEventListener('resize', function () { layout(0); });
+      layout(0);
       restartAuto();
 
       document.addEventListener('visibilitychange', function () {
